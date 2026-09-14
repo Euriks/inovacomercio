@@ -1,0 +1,6 @@
+streamlit==1.37.0
+pandas==2.2.2
+plotly==5.22.0
+requests==2.31.0
+pydrive2==1.19.1
+pydantic==2.8.2

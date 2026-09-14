@@ -1,0 +1,21 @@
+from __future__ import annotations
+
+from datetime import datetime, timezone
+from sqlalchemy import String, Integer, ForeignKey, DateTime, Text
+from sqlalchemy.orm import Mapped, mapped_column
+from backend.app.models.base import Base
+
+
+class AuditLog(Base):
+    __tablename__ = "audit_logs"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    usuario_id: Mapped[int | None] = mapped_column(Integer, ForeignKey("usuarios.id"), nullable=True)
+    evento: Mapped[str] = mapped_column(String(100), index=True, nullable=False)
+    modulo: Mapped[str] = mapped_column(String(100), nullable=False)
+    detalhes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    timestamp: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        nullable=False
+    )
